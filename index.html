@@ -288,6 +288,95 @@
     .card-logo { grid-column: 1 / -1; height: 200px; }
     .card-stats { height: 220px; }
   }
+
+  /* ── VISUAL POLISH ── */
+
+  /* Subtle green-tinted radial glow behind everything */
+  body {
+    background:
+      radial-gradient(ellipse 90% 45% at 50% -5%, rgba(74,138,58,0.07) 0%, transparent 65%),
+      #0f0f0f;
+  }
+
+  /* Site title — brighter, slightly larger spacing */
+  .site-title {
+    color: #5a5a5a;
+    letter-spacing: 5px;
+    text-shadow: 0 0 24px rgba(74,138,58,0.25);
+  }
+
+  /* Entrance animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .site-title { animation: fadeUp 0.5s ease both; }
+  .row1 { animation: fadeUp 0.55s 0.08s ease both; }
+  .row2 { animation: fadeUp 0.55s 0.18s ease both; }
+
+  /* Base card depth */
+  .card,
+  .card-logo,
+  .card-voice,
+  .card-discord,
+  .card-join {
+    box-shadow: 0 4px 28px rgba(0,0,0,0.55);
+  }
+
+  /* Logo card — subtle green glow on hover */
+  .card-logo {
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+  .card-logo:hover {
+    box-shadow: 0 4px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(74,138,58,0.25);
+    border-color: rgba(74,138,58,0.3);
+  }
+
+  /* Discord card — indigo glow on hover */
+  .card-discord {
+    transition: background 0.25s, box-shadow 0.3s, border-color 0.3s;
+  }
+  .card-discord:hover {
+    background: #1a1a28;
+    box-shadow: 0 4px 40px rgba(88,101,242,0.18), 0 0 0 1px rgba(88,101,242,0.2);
+    border-color: rgba(88,101,242,0.3);
+  }
+
+  /* Stats card — richer gradient overlay at bottom */
+  .stats-badges::before {
+    content: '';
+    position: absolute;
+    inset: -60px -14px -14px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .stats-badges { z-index: 2; }
+
+  /* Stat badge — subtle border */
+  .stat-badge {
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Join card — richer border */
+  .card-join {
+    border-color: rgba(74,138,58,0.18);
+  }
+
+  /* Field inputs — darker, cleaner */
+  .field-val {
+    background: #050505;
+    border-color: #1e1e1e;
+  }
+
+  /* Server IP bar — subtle left accent on hover */
+  .server-ip-bar {
+    border-left: 2px solid transparent;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .server-ip-bar:hover {
+    border-left-color: rgba(74,138,58,0.6);
+  }
 </style>
 </head>
 <body>
