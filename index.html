@@ -482,6 +482,7 @@
   function toggleJoin(e) {
     // Only react to clicks on the hero bar, not inner content
     if (!e.target.closest('.join-hero')) return;
+    playClick();
     joinOpen = !joinOpen;
     document.getElementById('joinCard').classList.toggle('open', joinOpen);
     document.getElementById('joinSub').textContent = joinOpen ? 'Java or Bedrock — your choice' : 'Click to get started';
@@ -490,6 +491,7 @@
   function switchPanel(e,next) {
     e.stopPropagation();
     if(switching||next===currentPanel) return; switching=true;
+    playClick();
     const prev=currentPanel; currentPanel=next;
     document.getElementById('tab-java').classList.toggle('active',next==='java');
     document.getElementById('tab-bedrock').classList.toggle('active',next==='bedrock');
@@ -521,9 +523,40 @@
     setTimeout(()=>{ wrap.style.height=''; subSwitching=false; },420);
   }
 
+  // Web Audio click sound
+  const _ac = new (window.AudioContext || window.webkitAudioContext)();
+  function playClick(type) {
+    try {
+      const g = _ac.createGain();
+      const o = _ac.createOscillator();
+      g.connect(_ac.destination);
+      o.connect(g);
+      if (type === 'copy') {
+        // soft high "ding" for copy
+        o.type = 'sine';
+        o.frequency.setValueAtTime(880, _ac.currentTime);
+        o.frequency.exponentialRampToValueAtTime(1200, _ac.currentTime + 0.08);
+        g.gain.setValueAtTime(0.08, _ac.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, _ac.currentTime + 0.18);
+        o.start(_ac.currentTime);
+        o.stop(_ac.currentTime + 0.18);
+      } else {
+        // subtle low click for UI interactions
+        o.type = 'sine';
+        o.frequency.setValueAtTime(440, _ac.currentTime);
+        o.frequency.exponentialRampToValueAtTime(300, _ac.currentTime + 0.06);
+        g.gain.setValueAtTime(0.06, _ac.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, _ac.currentTime + 0.1);
+        o.start(_ac.currentTime);
+        o.stop(_ac.currentTime + 0.1);
+      }
+    } catch(e) {}
+  }
+
   function copyIP(el) {
     if(event) event.stopPropagation();
     navigator.clipboard.writeText('mudsmp.net').catch(()=>{});
+    playClick('copy');
     if(el){ const orig=el.textContent; el.textContent='Copied!'; setTimeout(()=>el.textContent=orig,2000); }
     const t=document.getElementById('toast');
     if(t){ t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
@@ -532,6 +565,7 @@
   function copyPort(port, el) {
     if(event) event.stopPropagation();
     navigator.clipboard.writeText(port).catch(()=>{});
+    playClick('copy');
     const orig = el.textContent;
     el.textContent = 'Copied!';
     setTimeout(() => el.textContent = orig, 2000);
