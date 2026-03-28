@@ -289,39 +289,7 @@
     .card-stats { height: 220px; }
   }
 
-  /* ── VISUAL POLISH ── */
-
-  /* Subtle green-tinted radial glow behind everything */
-  body {
-    background:
-      radial-gradient(ellipse 90% 45% at 50% -5%, rgba(74,138,58,0.07) 0%, transparent 65%),
-      #0f0f0f;
-  }
-
-  /* Site title — brighter, slightly larger spacing */
-  .site-title {
-    color: #5a5a5a;
-    letter-spacing: 5px;
-    text-shadow: 0 0 24px rgba(74,138,58,0.25);
-  }
-
-  /* Entrance animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .site-title { animation: fadeUp 0.5s ease both; }
-  .row1 { animation: fadeUp 0.55s 0.08s ease both; }
-  .row2 { animation: fadeUp 0.55s 0.18s ease both; }
-
-  /* Base card depth */
-  .card,
-  .card-logo,
-  .card-voice,
-  .card-discord,
-  .card-join {
-    box-shadow: 0 4px 28px rgba(0,0,0,0.55);
-  }
+  /* ── HOVER GLOWS ── */
 
   /* Logo card — subtle green glow on hover */
   .card-logo {
@@ -342,34 +310,7 @@
     border-color: rgba(88,101,242,0.3);
   }
 
-  /* Stats card — richer gradient overlay at bottom */
-  .stats-badges::before {
-    content: '';
-    position: absolute;
-    inset: -60px -14px -14px;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-  .stats-badges { z-index: 2; }
-
-  /* Stat badge — subtle border */
-  .stat-badge {
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  /* Join card — richer border */
-  .card-join {
-    border-color: rgba(74,138,58,0.18);
-  }
-
-  /* Field inputs — darker, cleaner */
-  .field-val {
-    background: #050505;
-    border-color: #1e1e1e;
-  }
-
-  /* Server IP bar — subtle left accent on hover */
+  /* Server IP bar — green left accent on hover */
   .server-ip-bar {
     border-left: 2px solid transparent;
     transition: background 0.2s, border-color 0.2s;
