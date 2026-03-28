@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -lt /c/Users/cemur/AppData/Local/Temp/*.png /c/Users/cemur/AppData/Local/Temp/*.jpg /c/Users/cemur/AppData/Local/Temp/*.jpeg)",
+      "Read(//c/Users/cemur/.claude/projects/C--Users-cemur-Downloads-Code/**)",
+      "Bash(ls /c/Users/cemur/Downloads/*.png)",
+      "Bash(python3 -c \":*)",
+      "Read(//tmp/**)",
+      "Bash(python3 -:*)",
+      "Bash(npx --version)",
+      "Bash(mkdir -p \"C:/Users/cemur/Downloads/Code/.claude\")",
+      "Bash(\"C:/Users/cemur/Downloads/Code/.claude/launch.json\":*)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}
