@@ -89,7 +89,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(74,138,58,0.13) 0%, transparent 70%);
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(80,160,255,0.18) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.35s;
   }
@@ -106,7 +106,7 @@
   }
   .card-voice:hover .voice-icon {
     transform: scale(1.1);
-    filter: drop-shadow(0 0 16px rgba(74,138,58,0.7));
+    filter: drop-shadow(0 0 16px rgba(80,160,255,0.8));
   }
 
   .voice-title {
@@ -144,8 +144,12 @@
     transition: background 0.2s, border-color 0.2s;
   }
   .card-voice:hover .voice-cta {
-    background: rgba(74,138,58,0.28);
-    border-color: rgba(74,138,58,0.6);
+    background: rgba(80,160,255,0.2);
+    border-color: rgba(80,160,255,0.6);
+  }
+  .card-voice:hover {
+    border-color: rgba(80,160,255,0.35);
+    box-shadow: 0 0 0 2px rgba(80,160,255,0.15);
   }
   .voice-cta svg { width: 13px; height: 13px; flex-shrink: 0; }
 
@@ -287,6 +291,15 @@
     .row1 { grid-template-columns: 1fr 1fr; }
     .card-logo { grid-column: 1 / -1; height: 200px; }
     .card-stats { height: 220px; }
+  }
+
+  /* ── GROWING BORDER ON HOVER ── */
+  .card, .card-logo, .card-voice, .card-discord, .card-join {
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+  .card:hover, .card-join:hover:not(.open) {
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.13);
+    border-color: rgba(255,255,255,0.2);
   }
 
   /* ── HOVER GLOWS ── */
