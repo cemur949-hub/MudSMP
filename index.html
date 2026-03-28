@@ -404,7 +404,7 @@
                     </div>
                     <div class="join-field">
                       <label>Port</label>
-                      <div class="field-val" style="cursor:default">19132</div>
+                      <div class="field-val" onclick="copyPort('19132',this)">19132</div>
                     </div>
                   </div>
                   <div class="join-btns">
@@ -424,7 +424,7 @@
                     </div>
                     <div class="join-field">
                       <label>Port</label>
-                      <div class="field-val" style="cursor:default">19132</div>
+                      <div class="field-val" onclick="copyPort('19132',this)">19132</div>
                     </div>
                   </div>
                   <div class="join-btns">
@@ -496,6 +496,14 @@
     navigator.clipboard.writeText('mudsmp.net').catch(()=>{});
     const t=document.getElementById('toast');
     if(t){ t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
+  }
+
+  function copyPort(port, el) {
+    if(event) event.stopPropagation();
+    navigator.clipboard.writeText(port).catch(()=>{});
+    const orig = el.textContent;
+    el.textContent = 'Copied!';
+    setTimeout(() => el.textContent = orig, 2000);
   }
 
   function openDiscord() {
