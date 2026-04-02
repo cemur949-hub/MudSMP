@@ -84,7 +84,7 @@
     position: relative;
     overflow: hidden;
   }
-  .card-voice:hover { background: #222; }
+  .card-voice:hover { }
   .card-voice::before { display: none; }
 
   .voice-icon {
@@ -95,9 +95,6 @@
     transition: transform 0.3s, filter 0.3s;
     position: relative;
     z-index: 1;
-  }
-  .card-voice:hover .voice-icon {
-    transform: scale(1.1);
   }
 
   .voice-title {
@@ -145,7 +142,6 @@
     border-radius: 18px;
     transition: background 0.2s; text-decoration: none;
   }
-  .card-discord:hover { background: #222; }
   .discord-count { font-size: 34px; font-weight: 900; color: #fff; letter-spacing: -1px; line-height: 1; }
   .discord-sub { font-size: 12px; color: #999; text-align: center; display: flex; align-items: center; gap: 6px; }
   .green-dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; flex-shrink: 0; animation: pulse 2s infinite; }
@@ -158,7 +154,6 @@
     filter: brightness(0.68) saturate(1.05);
     transition: transform 0.45s ease, filter 0.3s;
   }
-  .card-stats:hover img { transform: scale(1.05); filter: brightness(0.85) saturate(1.15); }
   .card-label { position: absolute; top: 20px; left: 22px; font-size: 24px; font-weight: 800; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.95); z-index: 2; pointer-events: none; }
   .card-label.sm { font-size: 20px; }
   .stats-badges { position: absolute; bottom: 14px; left: 14px; right: 14px; display: flex; gap: 8px; flex-wrap: wrap; z-index: 2; pointer-events: none; }
@@ -166,11 +161,11 @@
   .stat-badge b { color: #86d040; }
 
   /* HOW TO JOIN */
-  .card-join { background: linear-gradient(135deg, #1c2a10 0%, #0e1a08 100%); border-radius: 18px; border: 1px solid #3a3a3a; cursor: pointer; transition: box-shadow 0.3s; }
+  .card-join { background: linear-gradient(135deg, #1c2a10 0%, #0e1a08 100%); border-radius: 18px; border: 1px solid #3a3a3a; cursor: pointer; transition: box-shadow 0.3s; touch-action: manipulation; }
   .card-join:hover:not(.open) { box-shadow: 0 0 0 2px rgba(74,138,58,0.4); }
   .card-join.open { cursor: default; }
   .card-join.open .join-hero { cursor: pointer; }
-  .join-hero { display: flex; align-items: center; justify-content: space-between; padding: 22px 26px; }
+  .join-hero { display: flex; align-items: center; justify-content: space-between; padding: 22px 26px; touch-action: manipulation; }
   .join-big-title { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -0.5px; line-height: 1; transition: font-size 0.35s; }
   .card-join.open .join-big-title { font-size: 18px; }
   .join-sub { font-size: 13px; color: #5a7a4a; margin-top: 4px; font-weight: 600; }
@@ -243,22 +238,27 @@
   }
 
   @media (max-width: 720px) {
-    body { padding: 16px 12px; gap: 10px; justify-content: flex-start; padding-top: 24px; }
-    .site-title { font-size: 8px; letter-spacing: 2px; }
+    body { padding: 12px 10px; gap: 8px; justify-content: flex-start; padding-top: 16px; }
+    .site-title { font-size: 7px; letter-spacing: 2px; }
     .row1 {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
     }
+    .card-logo { grid-column: 1 / -1; height: 170px; }
     .row2 { grid-template-columns: 1fr; }
-    .card-logo { height: 220px; }
-    .card-voice { padding: 20px 18px; gap: 10px; min-height: 180px; }
-    .voice-icon { width: 70px; height: 70px; }
-    .voice-title { font-size: 15px; }
-    .card-stats { height: 200px; }
-    .join-big-title { font-size: 24px; }
-    .card-join.open .join-big-title { font-size: 15px; }
-    .join-hero { padding: 18px 20px; }
-    .join-body-content { padding: 0 18px 18px; padding-top: 14px; }
+    .card-voice { padding: 14px 12px; gap: 7px; min-height: 0; }
+    .voice-icon { width: 48px; height: 48px; }
+    .voice-title { font-size: 12px; }
+    .voice-badge { font-size: 9px; padding: 2px 7px; }
+    .voice-cta { padding: 7px 12px; font-size: 10px; }
+    .card-discord { min-height: 0; padding: 14px 12px; }
+    .discord-count { font-size: 26px; }
+    .discord-sub { font-size: 10px; }
+    .card-stats { height: 160px; }
+    .join-big-title { font-size: 22px; }
+    .card-join.open .join-big-title { font-size: 14px; }
+    .join-hero { padding: 14px 16px; }
+    .join-body-content { padding: 0 16px 16px; padding-top: 12px; }
     .join-fields { grid-template-columns: 1fr; }
     .join-btns { flex-direction: column; }
     .btn-green, .btn-grey, .btn-tutorial { width: 100%; justify-content: center; }
@@ -266,14 +266,31 @@
     .edition-tab { flex: 1; justify-content: center; font-size: 11px; padding: 7px 8px; }
     .platform-btns { flex-direction: column; }
     .platform-btn { width: 100%; justify-content: center; }
-    .card-discord { min-height: 160px; }
-    .discord-count { font-size: 28px; }
+
+    /* Stats fades+shrinks first, then grid collapses the space */
+    .row2 {
+      grid-template-rows: 160px auto;
+      transition: grid-template-rows 0.35s cubic-bezier(0.4,0,0.2,1) 0.2s,
+                  gap 0.35s cubic-bezier(0.4,0,0.2,1) 0.2s;
+    }
+    .row2.join-open {
+      grid-template-rows: 0px auto;
+      gap: 0;
+    }
+    .card-stats {
+      transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.4,0,0.2,1);
+      transform: scale(1);
+      transform-origin: center center;
+    }
+    .row2.join-open .card-stats {
+      opacity: 0;
+      transform: scale(0.88);
+      pointer-events: none;
+    }
   }
 
   @media (min-width: 480px) and (max-width: 720px) {
-    .row1 { grid-template-columns: 1fr 1fr; }
-    .card-logo { grid-column: 1 / -1; height: 200px; }
-    .card-stats { height: 220px; }
+    .card-stats { height: 200px; }
   }
 
   /* ── GROWING BORDER ON HOVER ── */
@@ -287,33 +304,7 @@
 
   /* ── HOVER GLOWS ── */
 
-  /* Logo card — subtle green glow on hover */
-  .card-logo {
-    transition: box-shadow 0.3s, border-color 0.3s;
-  }
-  .card-logo:hover {
-    box-shadow: 0 4px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(74,138,58,0.25);
-    border-color: rgba(74,138,58,0.3);
-  }
 
-  /* Discord card — indigo glow on hover */
-  .card-discord {
-    transition: background 0.25s, box-shadow 0.3s, border-color 0.3s;
-  }
-  .card-discord:hover {
-    background: #1a1a28;
-    box-shadow: 0 4px 40px rgba(88,101,242,0.18), 0 0 0 1px rgba(88,101,242,0.2);
-    border-color: rgba(88,101,242,0.3);
-  }
-
-  /* Server IP bar — green left accent on hover */
-  .server-ip-bar {
-    border-left: 2px solid transparent;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .server-ip-bar:hover {
-    border-left-color: rgba(74,138,58,0.6);
-  }
 </style>
 </head>
 <body>
@@ -482,6 +473,11 @@
     joinOpen = !joinOpen;
     document.getElementById('joinCard').classList.toggle('open', joinOpen);
     document.getElementById('joinSub').textContent = joinOpen ? 'Java or Bedrock — your choice' : 'Click to get started';
+
+    // On mobile, animate stats out by collapsing row2's grid row
+    if (window.innerWidth <= 720) {
+      document.querySelector('.row2').classList.toggle('join-open', joinOpen);
+    }
   }
 
   function switchPanel(e,next) {
