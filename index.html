@@ -260,36 +260,12 @@
     .card-join.open .join-big-title { font-size: 14px; }
     .join-hero { padding: 14px 16px; }
     .join-body-content { padding: 0 16px 16px; padding-top: 12px; }
-    .card-join.open .join-body-inner {
-      overflow-y: auto;
-      max-height: calc(100dvh - 463px);
-    }
     .join-btns { flex-direction: column; }
     .btn-green, .btn-grey, .btn-tutorial { width: 100%; justify-content: center; }
     .edition-tabs { width: 100%; }
     .edition-tab { flex: 1; justify-content: center; font-size: 11px; padding: 7px 8px; }
     .platform-btn { flex: 1; justify-content: center; }
 
-    /* Stats fades+shrinks first, then grid collapses the space */
-    .row2 {
-      grid-template-rows: 160px auto;
-      transition: grid-template-rows 0.35s cubic-bezier(0.4,0,0.2,1) 0.2s,
-                  gap 0.35s cubic-bezier(0.4,0,0.2,1) 0.2s;
-    }
-    .row2.join-open {
-      grid-template-rows: 0px auto;
-      gap: 0;
-    }
-    .card-stats {
-      transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.4,0,0.2,1);
-      transform: scale(1);
-      transform-origin: center center;
-    }
-    .row2.join-open .card-stats {
-      opacity: 0;
-      transform: scale(0.88);
-      pointer-events: none;
-    }
   }
 
   @media (min-width: 480px) and (max-width: 720px) {
@@ -477,10 +453,12 @@
     document.getElementById('joinCard').classList.toggle('open', joinOpen);
     document.getElementById('joinSub').textContent = joinOpen ? 'Java or Bedrock — your choice' : 'Click to get started';
 
-    // On mobile, animate stats out by collapsing row2's grid row
+    // On mobile, allow body scroll when join is open so all content is reachable
     if (window.innerWidth <= 720) {
-      document.querySelector('.row2').classList.toggle('join-open', joinOpen);
+      document.body.style.overflowY = joinOpen ? 'auto' : '';
+      if (!joinOpen) document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
+
   }
 
   function switchPanel(e,next) {
