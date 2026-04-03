@@ -280,10 +280,10 @@
     .row2.join-open .card-stats {
       opacity: 0; transform: scale(0.92); pointer-events: none;
     }
-    /* Join body content scrolls internally — keeps join-body-inner overflow:hidden for close animation */
+    /* Hide notes on mobile, no scroll in join body */
+    .port-note, .console-disclaimer { display: none; }
     .card-join.open .join-body-content {
-      overflow-y: auto;
-      max-height: calc(100dvh - 472px);
+      overflow-y: hidden;
     }
 
   }
@@ -394,6 +394,7 @@
                   Tutorial
                 </a>
               </div>
+              <div class="port-note">Minecraft &rarr; Multiplayer &rarr; Add Server</div>
             </div>
             <div class="edition-panel hidden" id="panel-bedrock">
               <div class="platform-btns">
@@ -429,6 +430,7 @@
                       Tutorial
                     </a>
                   </div>
+                  <div class="port-note">Minecraft &rarr; Play &rarr; Servers &rarr; Add Server</div>
                 </div>
                 <div class="sub-panel hidden" id="bedrock-console">
                   <div class="join-fields">
@@ -448,6 +450,8 @@
                       Tutorial
                     </a>
                   </div>
+                  <div class="port-note">Use <b>BedrockConnect</b> to join</div>
+                  <div class="console-disclaimer">&#9432; This tutorial works on all consoles including PlayStation, Xbox and Nintendo Switch.</div>
                 </div>
               </div>
             </div>
