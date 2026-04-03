@@ -266,6 +266,26 @@
     .edition-tab { flex: 1; justify-content: center; font-size: 11px; padding: 7px 8px; }
     .platform-btn { flex: 1; justify-content: center; }
 
+    /* Stats collapses, join covers its area */
+    .row2 {
+      grid-template-rows: 160px auto;
+      transition: grid-template-rows 0.42s cubic-bezier(0.4,0,0.2,1),
+                  gap 0.42s cubic-bezier(0.4,0,0.2,1);
+    }
+    .row2.join-open { grid-template-rows: 0px auto; gap: 0; }
+    .card-stats {
+      overflow: hidden;
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .row2.join-open .card-stats {
+      opacity: 0; transform: scale(0.92); pointer-events: none;
+    }
+    /* Join body content scrolls internally — keeps join-body-inner overflow:hidden for close animation */
+    .card-join.open .join-body-content {
+      overflow-y: auto;
+      max-height: calc(100dvh - 472px);
+    }
+
   }
 
   @media (min-width: 480px) and (max-width: 720px) {
@@ -453,10 +473,9 @@
     document.getElementById('joinCard').classList.toggle('open', joinOpen);
     document.getElementById('joinSub').textContent = joinOpen ? 'Java or Bedrock — your choice' : 'Click to get started';
 
-    // On mobile, allow body scroll when join is open so all content is reachable
+    // On mobile, hide stats card so join covers its area
     if (window.innerWidth <= 720) {
-      document.body.style.overflowY = joinOpen ? 'auto' : '';
-      if (!joinOpen) document.body.scrollTop = document.documentElement.scrollTop = 0;
+      document.querySelector('.row2').classList.toggle('join-open', joinOpen);
     }
 
   }
