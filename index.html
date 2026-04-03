@@ -280,10 +280,11 @@
     .row2.join-open .card-stats {
       opacity: 0; transform: scale(0.92); pointer-events: none;
     }
-    /* Hide notes on mobile, no scroll in join body */
+    /* Hide notes on mobile, scroll only when content overflows */
     .port-note, .console-disclaimer { display: none; }
     .card-join.open .join-body-content {
-      overflow-y: hidden;
+      overflow-y: auto;
+      max-height: calc(100dvh - 455px);
     }
 
   }
