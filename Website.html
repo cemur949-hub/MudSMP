@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { overflow: hidden; height: 100%; }
+  html, body { height: 100%; }
   body {
     background: #0f0f0f;
     color: #fff;
@@ -280,6 +280,8 @@
     .row2.join-open .card-stats {
       opacity: 0; transform: scale(0.92); pointer-events: none;
     }
+    /* Lock body scroll only when join is open */
+    body.join-is-open { overflow: hidden; }
     /* Hide notes on mobile, scroll only when content overflows */
     .port-note, .console-disclaimer { display: none; }
     .card-join.open .join-body-content {
@@ -451,6 +453,22 @@
                       Tutorial
                     </a>
                   </div>
+                  <div class="join-btns" style="margin-top:8px;">
+                    <button class="btn-tutorial" style="flex:1;width:100%;" onclick="event.stopPropagation();toggleAltMethods(this)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      Alternate Methods
+                    </button>
+                  </div>
+                  <div class="alt-methods" style="display:none;margin-top:8px;">
+                    <a class="btn-tutorial" href="https://www.youtube.com/watch?v=31qRpFrfnLQ" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:flex;margin-bottom:8px;">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                      IP Method
+                    </a>
+                    <a class="btn-tutorial" href="https://www.youtube.com/watch?v=AoLPhKW2Xis" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:flex;">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                      App Method
+                    </a>
+                  </div>
                   <div class="port-note">Use <b>BedrockConnect</b> to join</div>
                   <div class="console-disclaimer">&#9432; This tutorial works on all consoles including PlayStation, Xbox and Nintendo Switch.</div>
                 </div>
@@ -474,11 +492,20 @@
     document.getElementById('joinCard').classList.toggle('open', joinOpen);
     document.getElementById('joinSub').textContent = joinOpen ? 'Java or Bedrock — your choice' : 'Click to get started';
 
-    // On mobile, hide stats card so join covers its area
+    // On mobile, hide stats card and lock body scroll when join is open
     if (window.innerWidth <= 720) {
       document.querySelector('.row2').classList.toggle('join-open', joinOpen);
+      document.body.classList.toggle('join-is-open', joinOpen);
     }
 
+  }
+
+  function toggleAltMethods(btn) {
+    const panel = btn.closest('.join-btns').nextElementSibling;
+    const open = panel.style.display === 'flex';
+    panel.style.display = open ? 'none' : 'flex';
+    panel.style.flexDirection = 'column';
+    btn.querySelector('svg').style.transform = open ? '' : 'rotate(180deg)';
   }
 
   function switchPanel(e,next) {
