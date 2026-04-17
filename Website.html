@@ -230,6 +230,45 @@
   }
   .btn-tutorial:hover { background: rgba(255,60,60,0.22); border-color: rgba(255,60,60,0.55); }
   .btn-tutorial svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  /* Alternate Methods */
+  .btn-alt-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; gap: 8px;
+    background: rgba(120,120,160,0.13); color: #a0a8c8;
+    border: 1px solid rgba(120,120,160,0.28); border-radius: 10px;
+    padding: 8px 13px; font-weight: 700; font-size: 11px;
+    cursor: pointer; touch-action: manipulation;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-alt-toggle:hover { background: rgba(120,120,160,0.22); border-color: rgba(120,120,160,0.5); }
+  .alt-chevron { width: 13px; height: 13px; flex-shrink: 0; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); }
+  .alt-methods {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4,0,0.2,1);
+    margin-top: 0;
+  }
+  .alt-methods.open { grid-template-rows: 1fr; }
+  .alt-methods-inner { overflow: hidden; display: flex; flex-direction: column; gap: 7px; padding-top: 0; transition: padding-top 0.35s cubic-bezier(0.4,0,0.2,1); }
+  .alt-methods.open .alt-methods-inner { padding-top: 8px; }
+  .btn-ip-method, .btn-app-method {
+    display: flex; align-items: center; gap: 7px;
+    border-radius: 10px; padding: 8px 13px;
+    font-weight: 700; font-size: 11px; cursor: pointer;
+    text-decoration: none; touch-action: manipulation;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-ip-method svg, .btn-app-method svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .btn-ip-method {
+    background: rgba(60,130,255,0.12); color: #7ab0ff;
+    border: 1px solid rgba(60,130,255,0.28);
+  }
+  .btn-ip-method:hover { background: rgba(60,130,255,0.22); border-color: rgba(60,130,255,0.5); }
+  .btn-app-method {
+    background: rgba(160,80,255,0.12); color: #c090ff;
+    border: 1px solid rgba(160,80,255,0.28);
+  }
+  .btn-app-method:hover { background: rgba(160,80,255,0.22); border-color: rgba(160,80,255,0.5); }
   .console-disclaimer {
     font-size: 11px; color: #5a8a4a; margin-top: 10px;
     padding: 8px 12px;
@@ -454,20 +493,22 @@
                     </a>
                   </div>
                   <div class="join-btns" style="margin-top:8px;">
-                    <button class="btn-tutorial" style="flex:1;width:100%;" onclick="event.stopPropagation();toggleAltMethods(this)">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <button class="btn-alt-toggle" onclick="event.stopPropagation();toggleAltMethods(this)">
                       Alternate Methods
+                      <svg class="alt-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                   </div>
-                  <div class="alt-methods" style="display:none;margin-top:8px;">
-                    <a class="btn-tutorial" href="https://www.youtube.com/watch?v=31qRpFrfnLQ" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:flex;margin-bottom:8px;">
-                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                      IP Method
-                    </a>
-                    <a class="btn-tutorial" href="https://www.youtube.com/watch?v=AoLPhKW2Xis" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:flex;">
-                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                      App Method
-                    </a>
+                  <div class="alt-methods">
+                    <div class="alt-methods-inner">
+                      <a class="btn-ip-method" href="https://www.youtube.com/watch?v=31qRpFrfnLQ" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        IP Method
+                      </a>
+                      <a class="btn-app-method" href="https://www.youtube.com/watch?v=AoLPhKW2Xis" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        App Method
+                      </a>
+                    </div>
                   </div>
                   <div class="port-note">Use <b>BedrockConnect</b> to join</div>
                   <div class="console-disclaimer">&#9432; This tutorial works on all consoles including PlayStation, Xbox and Nintendo Switch.</div>
@@ -502,10 +543,8 @@
 
   function toggleAltMethods(btn) {
     const panel = btn.closest('.join-btns').nextElementSibling;
-    const open = panel.style.display === 'flex';
-    panel.style.display = open ? 'none' : 'flex';
-    panel.style.flexDirection = 'column';
-    btn.querySelector('svg').style.transform = open ? '' : 'rotate(180deg)';
+    const open = panel.classList.toggle('open');
+    btn.querySelector('.alt-chevron').style.transform = open ? 'rotate(180deg)' : '';
   }
 
   function switchPanel(e,next) {
