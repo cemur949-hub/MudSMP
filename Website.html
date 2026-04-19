@@ -201,8 +201,8 @@
   .blink { width: 2px; height: 12px; background: #e0e0e0; display: inline-block; animation: blink 1s step-end infinite; flex-shrink: 0; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  .join-btns { display: flex; flex-direction: column; gap: 7px; }
-  .join-btns .btn-green, .join-btns .btn-tutorial { width: 100%; justify-content: center; }
+  .join-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .join-btns .btn-green { flex: 1; justify-content: center; }
   .btn-green { background: #4a8a3a; color: #fff; border: none; border-radius: 8px; padding: 7px 14px; font-weight: 700; font-size: 11px; cursor: pointer; transition: background 0.2s, transform 0.15s; }
   .btn-green:hover { background: #5aaa47; transform: translateY(-1px); }
   .btn-grey { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid #2e2e2e; border-radius: 10px; padding: 10px 18px; font-weight: 600; font-size: 13px; cursor: pointer; transition: background 0.2s; }
@@ -483,7 +483,7 @@
                   </div>
                   <div class="join-btns">
                     <button class="btn-green" onclick="copyIP(this)">Copy IP</button>
-                    <a class="btn-tutorial" href="https://www.youtube.com/watch?v=AoLPhKW2Xis" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                    <a class="btn-tutorial" href="https://youtu.be/31qRpFrfnLQ?si=a4QHbrCF99sMANhj" target="_blank" rel="noopener" onclick="event.stopPropagation()">
                       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                       Tutorial
                     </a>
